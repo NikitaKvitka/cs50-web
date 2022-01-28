@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Hello</title>
@@ -18,5 +18,65 @@
                 <option value="green">Green</option>
                 <option value="blue">Blue</option>
             </select>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Tasks</title>
+        <script>
+            //Wait for page load
+            document.addEventListener("DOMContentLoaded", function(){
+
+                //Select the submit button and input to be used later
+                const submit = document.querySelector('#submit');
+                const newTask = document.querySelector('#task');
+
+                //By default submit button is disabled
+                submit.disabled = true;
+
+                //Listen for input to be typed into the input field
+                newTask.onkeyup = () => {
+                    if (newTask.value.length > 0) {
+                       submit.disabled = false;
+                    } else {
+                        submit.disabled = true;
+                    }
+                }
+                
+                //List for submission of form
+                document.querySelector('form').onsubmit = () => {
+                    
+                    //Find the task the user just submitted
+                    const task = newTask.value;
+
+                    //Create a list item and add the task to it
+                    const li = document.createElement('li');
+                    li.innerHTML = task;
+
+                    //Add new element to unordered list
+                    document.querySelector('#tasks').append(li);
+                    
+                    //Clear input field
+                    newTask.value = '';
+
+                    //Disable submit button again
+                    submit.disabled = true;
+
+                    //Stop form from submitting
+                    return false;
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Tasks</h1>
+        <ul id="tasks"></ul>
+        
+        <form>
+            <input autocomplete="off" id="task" type="text">
+            <input id="submit" type="submit">
+        </form>
     </body>
 </html>
